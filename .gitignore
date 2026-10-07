@@ -27,3 +27,12 @@ vcs_repos/
 # External repos (cloned locally, not tracked)
 turtlebot3_autorace/
 deepracer-custom-tracks/
+
+# models: only vehicle and rrbot.xacro are tracked
+models/*
+!models/vehicle/
+!models/rrbot.xacro
+
+# worlds: only .sdf files are tracked
+simple_example/worlds/*
+!simple_example/worlds/*.sdf
