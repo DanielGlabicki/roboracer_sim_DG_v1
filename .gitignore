@@ -1,0 +1,25 @@
+# colcon workspace artifacts
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Blender backups
+*.blend1
+*.blend2
+
+# Editors / OS
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Local environment
+.env
+vcs_repos/
