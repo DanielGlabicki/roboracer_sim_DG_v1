@@ -1,6 +1,0 @@
-[submodule "turtlebot3_autorace"]
-	path = turtlebot3_autorace
-	url = https://github.com/ROBOTIS-GIT/turtlebot3_autorace.git
-[submodule "deepracer-custom-tracks"]
-	path = deepracer-custom-tracks
-	url = https://github.com/aws-deepracer-community/deepracer-custom-tracks.git

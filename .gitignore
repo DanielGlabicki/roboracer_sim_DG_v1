@@ -23,3 +23,7 @@ __pycache__/
 # Local environment
 .env
 vcs_repos/
+
+# External repos (cloned locally, not tracked)
+turtlebot3_autorace/
+deepracer-custom-tracks/
