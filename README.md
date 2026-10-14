@@ -1,6 +1,6 @@
 # ROS 2 + Gazebo Harmonic docker
 
-Repozytorium zawiera kod do wykorzystania przez studentów w celu realizacji zajęć z Systemów i Algorytmów Percepcji w Pojazdach Autonomicznych (SiAPwPA) w semestrze zimowym 2024/2025.
+Repozytorium zawiera kod do wykorzystania przez studentów w celu realizacji zajęć z Percepcja i Sterowanie Robotów Autonomicznych (PiSRA) w semestrze zimowym 2026/2027.
 
 ## Wymagania
 
@@ -21,6 +21,32 @@ Przejdź do lewego dolnego rogu i kliknij niebieską ikonę z dwiema strzałkami
 
 Po zalogowaniu się do dockera będzie on działał w sposób podobny do uruchamiania ROS na komputerze hosta. Wszystkie aplikacje GUI będą korzystać z domyślnego menedżera okien hosta, będziesz mieć również dostęp do wszystkich urządzeń na hoście, a także akceleracji GPU.
 Docker ma preinstalowany [ROS 2 Jazzy](https://docs.ros.org/en/jazzy/Tutorials.html) i większość potrzebnych zależności oraz symulator [Gazebo Harmonic](https://gazebosim.org/docs/harmonic/getstarted/).
+
+## Dwie osoby na jednym komputerze
+
+Każda osoba pracuje we własnym kontenerze (wspólny jest tylko obraz `psra-ros2-jazzy`, budowany raz).
+
+1. Każda osoba klonuje repozytorium do **własnego** katalogu, np. `~/psra_ania` i `~/psra_bartek`.
+2. W swoim klonie tworzy plik `.devcontainer/.env` na podstawie `.devcontainer/.env.example` (plik nie jest commitowany):
+
+   ```bash
+   cp .devcontainer/.env.example .devcontainer/.env
+   ```
+
+   i ustawia **różne** wartości:
+
+   | Zmienna         | Osoba 1  | Osoba 2  | Do czego służy                          |
+   |-----------------|----------|----------|-----------------------------------------|
+   | `DEV_NAME`      | `ania`   | `bartek` | nazwa kontenera (`psra-<DEV_NAME>`)     |
+   | `ROS_DOMAIN_ID` | `11`     | `22`     | izolacja topiców ROS 2                  |
+   | `GZ_PARTITION`  | `ania`   | `bartek` | izolacja komunikacji Gazebo             |
+
+3. Otwiera swój klon w VS Code i wybiera **"Reopen in Container"**.
+
+> [!WARNING]
+> Kontenery działają w sieci hosta (`network_mode: host`). Bez różnych `ROS_DOMAIN_ID` i `GZ_PARTITION` obie osoby widziałyby nawzajem swoje topici i symulacje.
+
+Sprawdzenie w kontenerze: `echo $ROS_DOMAIN_ID $GZ_PARTITION`, a na hoście: `docker ps` (dwa kontenery `psra-<DEV_NAME>-workspace-1`).
 
 ## Pierwsze uruchomienie
 
@@ -54,3 +80,4 @@ Należy pamiętać, aby po zbudowaniu wywołać komendę lub pracować w nowym t
 * [ROS 2 Command Cheat Sheet](docs/cheatsheet.md)
 * [ROS 2 Example packages in Python](docs/example.md)
 * [Bridge communication between ROS and Gazebo](docs/ros_gz_bridge.md)
+* [TF dla kamery i lidaru](docs/tf.md)
