@@ -25,6 +25,7 @@ __pycache__/
 vcs_repos/
 
 # External repos (cloned locally, not tracked)
+roboracer_sim/
 turtlebot3_autorace/
 deepracer-custom-tracks/
 

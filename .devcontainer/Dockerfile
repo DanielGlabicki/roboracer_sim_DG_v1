@@ -12,6 +12,7 @@ RUN apt update && \
         cmake \
         git \
         curl lsb-release gnupg \
+        mesa-utils \
         libbullet-dev \
         python3-colcon-common-extensions \
         python3-flake8 \
@@ -54,15 +55,21 @@ RUN apt-get update -y && \
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
-RUN useradd -rm -d /home/developer -s /bin/bash -g root -G sudo -u 1001 developer && \
+# Ubuntu 24.04 ships an 'ubuntu' user with UID 1000 - remove it to free that ID.
+# devcontainer.json ("updateRemoteUserUID") remaps developer to the host user's UID/GID,
+# so files in the bind-mounted workspace stay writable.
+RUN userdel -r ubuntu 2>/dev/null || true && \
+    groupadd -g 1000 developer && \
+    useradd -m -d /home/developer -s /bin/bash -u 1000 -g 1000 -G sudo developer && \
     echo 'developer:developer' | chpasswd && \
-    adduser developer sudo
+    echo 'developer ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/developer && \
+    chmod 0440 /etc/sudoers.d/developer
 USER developer
 
 # RUN git clone https://github.com/PX4/PX4-Autopilot.git ~/PX4-Autopilot --recursive -b main && \
 #     echo developer | sudo -S bash /home/developer/PX4-Autopilot/Tools/setup/ubuntu.sh
 
-COPY --chown=developer:root . /home/developer/ros2_ws
+COPY . /home/developer/ros2_ws/
 WORKDIR /home/developer/ros2_ws
 
 

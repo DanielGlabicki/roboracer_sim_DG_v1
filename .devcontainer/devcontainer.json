@@ -3,8 +3,12 @@
 		"compose.yaml"
 	],
 	"initializeCommand": "xhost +local:docker",
-	// "onCreateCommand": "/bin/bash /home/developer/ros2_ws/setup.sh",
+	// Instaluje zależności z package.xml wszystkich pakietów w src (rosdep) przy tworzeniu kontenera
+	// "onCreateCommand": "/bin/bash /home/developer/ros2_ws/src/.devcontainer/setup.sh",
 	"service": "workspace",
+	"remoteUser": "developer",
+	// Remap developer's UID/GID to the host user's so the mounted workspace is writable
+	"updateRemoteUserUID": true,
 	"workspaceFolder": "/home/developer/ros2_ws/src",
 	"shutdownAction": "stopCompose",
 	// Set *default* container specific settings.json values on container create.
