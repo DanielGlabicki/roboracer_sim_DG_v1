@@ -1,6 +1,7 @@
 {
 	"dockerComposeFile": [
 		"compose.yaml"
+		// "compose.amd.yaml"
 	],
 	"initializeCommand": "xhost +local:docker",
 	// Instaluje zależności z package.xml wszystkich pakietów w src (rosdep) przy tworzeniu kontenera

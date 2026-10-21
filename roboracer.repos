@@ -4,4 +4,4 @@ repositories:
   vcs_repos/roboracer_description:
     type: git
     url: https://github.com/vision-agh/roboracer_description.git
-    version: main
+    version: main # branch
